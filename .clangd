@@ -1,0 +1,11 @@
+CompileFlags:                     # Tweak the parse settings
+  CompilationDatabase: .
+  Add: [
+    -Wall,
+    -Wpedantic,
+  ]
+  Remove: [-W*,
+    --target*,
+    -mcpu=s3,
+  ]                     # strip all other warning-related flags
+  Compiler: clang

@@ -49,6 +49,8 @@ sinclude_dirs :=
 
 csources :=
 csources += $(ROOT)/Src/main.c
+# csources += $(ROOT)/Cfg/vects_$(MCU).c
+# csources += $(ROOT)/Cfg/inthandler_$(MCU).c
 csources += $(ROOT)/Src/port/port_cfg.c
 csources += $(ROOT)/Src/port/port.c
 
