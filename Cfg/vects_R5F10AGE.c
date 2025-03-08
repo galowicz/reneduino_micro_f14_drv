@@ -6,7 +6,7 @@
 /* Tool Version: 4.0.11                                                 */
 /* Date Generated: 2022/06/03                                           */
 /************************************************************************/
-#include "interrupt_handlers.h"
+#include "interrupt_handlers_R5F10AGE.h"
 
 extern void PowerON_Reset (void);
 

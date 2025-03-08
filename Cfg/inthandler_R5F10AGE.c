@@ -6,7 +6,7 @@
 /* Tool Version: 4.0.0                                                  */
 /* Date Generated: 2020/01/17                                           */
 /************************************************************************/
-#include "interrupt_handlers.h"
+#include "interrupt_handlers_R5F10AGE.h"
 
 /*
  * INT_SRO/INT_WDTI (0x4)
