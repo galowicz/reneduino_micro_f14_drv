@@ -23,7 +23,7 @@
 /* Exported Type definitions */
 
 /* Exported Objects */
-extern const Port_PortRegisters_t Port_PortRegistersPtr[16];
+extern const Port_PortRegisters_t Port_PortRegistersPtr;
 extern const Port_ConfigType	  Port_DefaultConfig;
 
 /* Exported function prototypes */

@@ -31,7 +31,7 @@ int main(void) {
 		for (uint32 i = max; i != 0; i--) {
 			asm("nop");
 		}
-		max = max + 5;
+		max = max + 50;
 	}
 	return 0;
 }

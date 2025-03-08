@@ -51,6 +51,7 @@ typedef struct {
 	volatile uint8* pim_reg;
 	volatile uint8* pom_reg;
 	volatile uint8* pmc_reg;
+	volatile uint8* pithl_reg;
 } Port_PortRegisters_t;
 
 /*!
@@ -58,7 +59,7 @@ typedef struct {
  */
 typedef struct {
 	const Port_PortReg_t* port_cfg;
-	uint8		len;
+	uint8		      len;
 } Port_ConfigType;
 
 /* Exported Objects */
