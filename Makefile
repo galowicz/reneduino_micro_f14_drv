@@ -51,8 +51,8 @@ csources :=
 csources += $(ROOT)/Src/main.c
 # csources += $(ROOT)/Cfg/vects_$(MCU).c
 # csources += $(ROOT)/Cfg/inthandler_$(MCU).c
-csources += $(ROOT)/Src/port/Port_cfg.c
-csources += $(ROOT)/Src/port/Port.c
+csources += $(ROOT)/Src/Port/Port_Cfg.c
+csources += $(ROOT)/Src/Port/Port.c
 
 ssources :=
 # ssources := $(ROOT)/Cfg/start.s
