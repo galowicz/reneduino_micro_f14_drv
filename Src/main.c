@@ -5,9 +5,10 @@
  *
  */
 /* Includes */
+#include "Dio.h"
+#include "Port.h"
 #include "Std_Types.h"
 #include "iodefine_R5F10AGE.h"
-#include "Port.h"
 
 /* Macros */
 
@@ -23,11 +24,13 @@ int main(void) {
 	// PM4 = (uint8) ~(1 << 1);
 
 	for (;;) {
-		P4 |= (uint8)(1 << 1);
+		// P4 |= (uint8)(1 << 1);
+		Dio_WriteChannel(DIO_CHANNEL_USERLED, STD_HIGH);
 		for (uint32 i = max / 2; i != 0; i--) {
 			asm("nop");
 		}
-		P4 &= (uint8) ~(1 << 1);
+		// P4 &= (uint8) ~(1 << 1);
+		Dio_WriteChannel(DIO_CHANNEL_USERLED, STD_LOW);
 		for (uint32 i = max; i != 0; i--) {
 			asm("nop");
 		}
