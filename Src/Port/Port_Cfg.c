@@ -1,13 +1,13 @@
 /*!
- * \file ${file-name}
- * \brief
+ * \file Port_Cfg.c
+ * \brief Port driver configuration
  * \author awd110
  *
  */
 /* Includes */
 #include "iodefine_R5F10AGE.h"
 #include "iodefine_ext_R5F10AGE.h"
-#include "port_types.h"
+#include "Port_Types.h"
 
 /* Macros */
 

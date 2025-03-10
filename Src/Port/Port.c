@@ -1,15 +1,15 @@
 /*!
- * \file port.c
+ * \file Port.c
  * \brief Port driver source file
  * \author awd110
  *
  */
 /* Includes */
-#include "port.h"
+#include "Port.h"
 #include "Std_Types.h"
 #include "iodefine_R5F10AGE.h"
 #include "iodefine_ext_R5F10AGE.h"
-#include "port_types.h"
+#include "Port_Types.h"
 
 /* Macros */
 

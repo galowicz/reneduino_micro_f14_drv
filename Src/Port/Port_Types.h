@@ -1,6 +1,6 @@
 /*!
  * \file port_types.h
- * \brief Port driver header with typedefinitions
+ * \brief Port driver header with type definitions
  * \author awd110
  *
  */

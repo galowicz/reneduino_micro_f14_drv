@@ -41,7 +41,7 @@ cinclude_dirs :=
 cinclude_dirs += $(ROOT)/Cfg/
 cinclude_dirs += $(ROOT)/Src/
 cinclude_dirs += $(ROOT)/Src/Lib/
-cinclude_dirs += $(ROOT)/Src/port/
+cinclude_dirs += $(ROOT)/Src/Port/
 
 sinclude_dirs :=
 
@@ -51,8 +51,8 @@ csources :=
 csources += $(ROOT)/Src/main.c
 # csources += $(ROOT)/Cfg/vects_$(MCU).c
 # csources += $(ROOT)/Cfg/inthandler_$(MCU).c
-csources += $(ROOT)/Src/port/port_cfg.c
-csources += $(ROOT)/Src/port/port.c
+csources += $(ROOT)/Src/port/Port_cfg.c
+csources += $(ROOT)/Src/port/Port.c
 
 ssources :=
 # ssources := $(ROOT)/Cfg/start.s

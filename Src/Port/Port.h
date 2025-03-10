@@ -9,7 +9,7 @@
 
 /* Includes */
 #include "Std_Types.h"
-#include "port_types.h"
+#include "Port_Types.h"
 
 /* Macros */
 #define PORT_E_PARAM_PIN	      0x0A

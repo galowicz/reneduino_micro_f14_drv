@@ -7,7 +7,7 @@
 /* Includes */
 #include "Std_Types.h"
 #include "iodefine_R5F10AGE.h"
-#include "port.h"
+#include "Port.h"
 
 /* Macros */
 
