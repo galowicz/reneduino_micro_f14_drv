@@ -19,8 +19,8 @@ LDFLAGS := $(CFLAGS)
 LDFLAGS += -T $(ROOT)/Cfg/linker_script_$(MCU).ld
 LDFLAGS += -Wl,-Map=$(BUILD_DIR)/$(ARTIFACT_NAME).map
 # LDFLAGS += -Wl,--start-group -l$(BUILD_DIR)/$(ARTIFACT_NAME)  -Wl,--end-group
-# LDFLAGS += -nostartfiles
-# LDFLAGS += -Wl,-e_PowerON_Reset
+LDFLAGS += -nostartfiles
+LDFLAGS += -Wl,-e_PowerON_Reset
 LDFLAGS += -Wl,--gc-sections
 LDFLAGS += -Wl,--cref
 LDFLAGS += -Wl,--icf=none
@@ -43,6 +43,7 @@ cinclude_dirs += $(ROOT)/Src/
 cinclude_dirs += $(ROOT)/Src/Lib/
 cinclude_dirs += $(ROOT)/Src/Port/
 cinclude_dirs += $(ROOT)/Src/Dio/
+cinclude_dirs += $(ROOT)/Src/Lin/
 
 sinclude_dirs :=
 
@@ -50,12 +51,14 @@ sinclude_dirs :=
 
 csources :=
 csources += $(ROOT)/Src/main.c
-# csources += $(ROOT)/Cfg/vects_$(MCU).c
-# csources += $(ROOT)/Cfg/inthandler_$(MCU).c
+csources += $(ROOT)/Cfg/vects_$(MCU).c
+csources += $(ROOT)/Cfg/inthandler_$(MCU).c
 csources += $(ROOT)/Src/Port/Port_Cfg.c
 csources += $(ROOT)/Src/Port/Port.c
 csources += $(ROOT)/Src/Dio/Dio.c
 csources += $(ROOT)/Src/Dio/Dio_Cfg.c
+csources += $(ROOT)/Src/Lin/Lin.c
+csources += $(ROOT)/Src/Lin/Lin_Rlin3.c
 
 ssources :=
 # ssources := $(ROOT)/Cfg/start.s
@@ -96,9 +99,12 @@ $(BUILD_DIR)/$(ARTIFACT_NAME).elf: $(BUILD_DIR)/Src $(objects)
 	@echo  'Build finished'
 	@echo ''
 
+$(BUILD_DIR)/$(ARTIFACT_NAME).bin: $(BUILD_DIR)/$(ARTIFACT_NAME).elf
 $(BUILD_DIR)/$(ARTIFACT_NAME).hex: $(BUILD_DIR)/$(ARTIFACT_NAME).elf
 	@echo  'Create Flash image'
 	$(OBJCOPY) $(BUILD_DIR)/$(ARTIFACT_NAME).elf -O ihex $(BUILD_DIR)/$(ARTIFACT_NAME).hex
+	$(OBJCOPY) $(BUILD_DIR)/$(ARTIFACT_NAME).elf -O binary $(BUILD_DIR)/$(ARTIFACT_NAME).bin
+	@echo ''
 	@echo ''
 
 print_size:

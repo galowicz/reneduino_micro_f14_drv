@@ -1,11 +1,14 @@
-CompileFlags:                     # Tweak the parse settings
-  CompilationDatabase: .
+CompileFlags:
+  Remove: [
+    "-mcpu=*",
+    "--target=*"
+  ]                     # strip all other warning-related flags
   Add: [
     -Wall,
-    -Wpedantic,
+    "--target=i386-unknown-none-code16",
   ]
-  Remove: [-W*,
-    --target*,
-    -mcpu=s3,
-  ]                     # strip all other warning-related flags
-  Compiler: clang
+  CompilationDatabase: .
+  Compiler: /opt/renesas/toolchains/llvm-17.0.1.202412-rl78-elf/bin/clang
+
+Diagnostics:
+  Suppress: include
