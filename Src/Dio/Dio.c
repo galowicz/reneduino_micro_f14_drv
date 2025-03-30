@@ -136,8 +136,7 @@ Dio_LevelType Dio_FlipChannel(Dio_ChannelType ChannelId) {
 
 	if (E_OK == Dio_DecodeChannel(ChannelId, &port, &pin)) {
 		uint8 val = Port_PortRegistersPtr.p_reg[port];
-		val &= ~(1 << pin);
-		val |= 1 << pin;
+		val ^= (1 << pin);
 		Port_PortRegistersPtr.p_reg[port] = val;
 
 		retval = (Port_PortRegistersPtr.p_reg[port] >> pin) & 1;
