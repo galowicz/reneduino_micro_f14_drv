@@ -43,14 +43,10 @@ int main(void) {
 		for (uint32 i = max; i != 0; i--) {
 			asm("nop");
 		}
-		max = max + 50;
+		// max = max + 50;
+		max = 40000;
 	}
 	return 0;
 }
 
-const unsigned char Option_Bytes[] __attribute__((section(".option_bytes"))) = {
-	0xef, 0xff, 0xe8, 0x85};
-
-const unsigned char Security_Id[] __attribute__((section(".security_id"))) = {
-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 /* Function definitions */

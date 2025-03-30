@@ -51,6 +51,7 @@ sinclude_dirs :=
 
 csources :=
 csources += $(ROOT)/Src/main.c
+csources += $(ROOT)/Cfg/hwinit.c
 csources += $(ROOT)/Cfg/vects_$(MCU).c
 csources += $(ROOT)/Cfg/inthandler_$(MCU).c
 csources += $(ROOT)/Src/Port/Port_Cfg.c
@@ -61,7 +62,7 @@ csources += $(ROOT)/Src/Lin/Lin.c
 csources += $(ROOT)/Src/Lin/Lin_Rlin3.c
 
 ssources :=
-# ssources := $(ROOT)/Cfg/start.s
+ssources := $(ROOT)/Cfg/start.s
 
 objects := $(csources:$(ROOT)%.c=$(BUILD_DIR)%.c.o) $(ssources:$(ROOT)%.s=$(BUILD_DIR)%.s.o)
 
