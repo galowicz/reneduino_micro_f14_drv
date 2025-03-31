@@ -37,6 +37,7 @@ _Shiftout_Print:
 	NOP;
 	NOP;
 	NOP;
+	NOP;
 Loop:
 	;data bits
 	RORC A, 1;
