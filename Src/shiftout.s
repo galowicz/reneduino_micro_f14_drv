@@ -28,11 +28,11 @@ Shiftout_Init:
 	.type	_Shiftout_Print,@function
 _Shiftout_Print:
 	SET1 P14.0;
+	MOV H, #8;
 	NOP;
 	NOP;
 	NOP;
 	CLR1 !P14.0;
-	MOV H, #8;
 	NOP;
 	NOP;
 	NOP;
@@ -47,8 +47,6 @@ Loop:
 	NOP;
 	NOP;
 	SET1 P14.0;
-	NOP;
-	NOP;
 	NOP;
 
 
