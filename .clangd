@@ -4,6 +4,8 @@ CompileFlags:
     "--target=*"
   ]                     # strip all other warning-related flags
   Add: [
+    -D__builtin_rl78_ei()=asm("EI");,
+    -D__builtin_rl78_di()=asm("DI");,
     -Wall,
     "--target=i386-unknown-none-code16",
   ]

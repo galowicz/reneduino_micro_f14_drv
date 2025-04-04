@@ -1,6 +1,6 @@
 /*!
  * \file opt_bytes.c
- * \brief Option bytes config
+ * \brief Option bytes config for Renesas RL78/F14 F13 mcus
  * \author awd110
  *
  */

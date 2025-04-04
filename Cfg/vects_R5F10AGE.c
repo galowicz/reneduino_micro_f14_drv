@@ -10,11 +10,6 @@
 
 extern void PowerON_Reset(void);
 
-const unsigned char Option_Bytes[] __attribute__((section(".option_bytes"))) = {
-	0xef, 0xff, 0xe8, 0x85};
-
-const unsigned char Security_Id[] __attribute__((section(".security_id"))) = {
-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
 #define VEC __attribute__((section(".vec")))
 const void __near* HardwareVectors[] VEC = {

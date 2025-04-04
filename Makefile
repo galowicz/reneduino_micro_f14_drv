@@ -53,6 +53,7 @@ csources :=
 csources += $(ROOT)/Src/main.c
 # csources += $(ROOT)/Src/shiftout.c
 csources += $(ROOT)/Cfg/hwinit.c
+csources += $(ROOT)/Cfg/opt_bytes_$(MCU).c
 csources += $(ROOT)/Cfg/vects_$(MCU).c
 csources += $(ROOT)/Cfg/inthandler_$(MCU).c
 csources += $(ROOT)/Src/Port/Port_Cfg.c
