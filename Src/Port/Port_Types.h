@@ -35,13 +35,13 @@ typedef uint8 Port_PinModeType;
  */
 typedef struct {
 	uint8 port_index;
-	uint8 p_reg;
-	uint8 pm_reg;
-	uint8 pim_reg;
-	uint8 pom_reg;
-	uint8 pmc_reg;
-	uint8 pu_reg;
-	uint8 pithl_reg;
+	uint8 p_reg;	 // Data register - 1 high, 0 low
+	uint8 pm_reg;	 // Direction - 1 input, 0 output
+	uint8 pim_reg;	 // input mode - 1 ttl, 0 normal
+	uint8 pom_reg;	 // output mode - 1 open drain, 0 normal
+	uint8 pmc_reg;	 // mode control - 1 analog in, 0 digital io
+	uint8 pu_reg;	 // Pullup - 1 enabled, 0 disabled
+	uint8 pithl_reg; // input threshold - 1 shmitt3, 0 shmitt1
 } Port_PortReg_t;
 
 typedef struct {

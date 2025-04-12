@@ -20,35 +20,48 @@
 
 /* Objects */
 uint8	    Frame_Data[8] = {0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77};
-Lin_PduType Frame	  = {
-		.Pid	= 0,
-		.Cs	= LIN_CLASSIC_CS,
-		.Drc	= LIN_FRAMERESPONSE_TX,
-		.Dl	= 8,
-		.SduPtr = Frame_Data,
+Lin_PduType Frame_Tx	  = {
+	     .Pid    = 0x49,
+	     .Cs     = LIN_ENHANCED_CS,
+	     .Drc    = LIN_FRAMERESPONSE_TX,
+	     .Dl     = 8,
+	     .SduPtr = Frame_Data,
+};
+Lin_PduType Frame_Rx = {
+	.Pid	= 0xC1,
+	.Cs	= LIN_ENHANCED_CS,
+	.Drc	= LIN_FRAMERESPONSE_RX,
+	.Dl	= 4,
+	.SduPtr = Frame_Data,
 };
 
 /* Function prototypes */
 int main(void) {
 	uint32 max = 0;
 	Port_Init(&Port_DefaultConfig);
-	// Lin_Init(NULL_PTR);
+	Shiftout_Print(0x55);
+	Lin_Init(NULL_PTR);
 	// CKS0 = 0x82;
 
 	// PM4 = (uint8) ~(1 << 1);
 
-	// max = 400000;
+	max = 1000000;
+	EI();
 	for (;;) {
-		// (void)Lin_SendFrame(0, &Frame);
+		Shiftout_Print('S');
+		if (STD_LOW == Dio_ReadChannel(DIO_CHANNEL_USERLED)) {
+			(void)Lin_SendFrame(0, &Frame_Rx);
+		} else {
+			(void)Lin_SendFrame(0, &Frame_Tx);
+		}
 		// (void)Dio_FlipChannel(DIO_CHANNEL_P13);
-		Shiftout_Print(0x55);
 		(void)Dio_FlipChannel(DIO_CHANNEL_USERLED);
 		// (void)Dio_WriteChannel(DIO_CHANNEL_USERLED, STD_HIGH);
 
 		for (uint32 i = max; i != 0; i--) {
 			asm("nop");
 		}
-		max = max + 50;
+		// max = max + 50;
 	}
 	return 0;
 }

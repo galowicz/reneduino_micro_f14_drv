@@ -30,7 +30,7 @@ const Port_PortReg_t Port_PortDefaultConfig[] = {
 	{
 		// P1
 		.port_index = 1,
-		.p_reg	    = 0b00001100u,
+		.p_reg	    = 0b00001100u,// P17 - unused, P16 - unused, P15 - unused, P14 - lin rx, P13 - lin tx, P12 - lin en, P11 - unused, P10 - unused
 		.pm_reg	    = 0b11110011u,
 		.pim_reg    = 0,
 		.pom_reg    = 0,
@@ -130,7 +130,7 @@ const Port_PortReg_t Port_PortDefaultConfig[] = {
 		// P14
 		.port_index = 14,
 		.p_reg	    = 0,
-		.pm_reg	    = 0,
+		.pm_reg	    = 0b00000000,
 		.pim_reg    = 0,
 		.pom_reg    = 0,
 		.pmc_reg    = 0,

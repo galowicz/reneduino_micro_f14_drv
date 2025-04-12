@@ -6,6 +6,7 @@
 /* Includes */
 #include "Lin.h"
 #include "Lin_Rlin3.h"
+#include "Lin_Types.h"
 #include "Std_Types.h"
 #include "iodefine_R5F10AGE.h"
 #include "iodefine_ext_R5F10AGE.h"
@@ -13,24 +14,6 @@
 /* Macros */
 
 /* Typedefs */
-typedef enum {
-	LIN_UNINIT,
-	LIN_IDLE,
-	LIN_SLEEP,
-	LIN_WAKEUP,
-	LIN_BREAK,
-	LIN_SYNC,
-	LIN_PID,
-	LIN_RESP_DATA,
-	LIN_RESP_CHKSUM,
-} Lin_state_t;
-
-typedef struct {
-	Lin_state_t    state;
-	Lin_StatusType Status;
-	uint8	       datacount;
-	Lin_PduType*   Pdu;
-} Lin_Control_t;
 
 /* Objects */
 Lin_Control_t Lin_Ctrl = {0};
@@ -45,11 +28,12 @@ Lin_Control_t Lin_Ctrl = {0};
  */
 void Lin_Init(const Lin_ConfigType* Config) {
 	(void)Config; // TODO
-	Lin_Ctrl.state = LIN_UNINIT;
+	Lin_Ctrl.Status = LIN_NOT_OK;
 
 	Lin_Rlin3_Init(NULL_PTR);
 
-	Lin_Ctrl.state = LIN_IDLE;
+	// TODO: init in sleep
+	Lin_Ctrl.Status = LIN_OPERATIONAL;
 }
 
 /*!
@@ -91,7 +75,8 @@ void Lin_GetVersionInfo(Std_VersionInfoType* versioninfo) {
 Std_ReturnType Lin_SendFrame(uint8 Channel, const Lin_PduType* PduInfoPtr) {
 	Std_ReturnType retval = E_NOT_OK;
 	if (Channel == 0) {
-		Lin_Rlin3_TxHeader(PduInfoPtr);
+		Lin_Rlin3_SendFrame(PduInfoPtr);
+		retval = E_OK;
 	}
 	return retval;
 }

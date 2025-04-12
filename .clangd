@@ -6,6 +6,12 @@ CompileFlags:
   Add: [
     -D__builtin_rl78_ei()=asm("EI");,
     -D__builtin_rl78_di()=asm("DI");,
+    -Duint8_t=unsigned char,
+    -Dint8_t=char,
+    -Duint16_t=unsigned short,
+    -Dint16_t=short,
+    -Duint32_t=unsigned int,
+    -Dint32_t=int,
     -Wall,
     "--target=i386-unknown-none-code16",
   ]
