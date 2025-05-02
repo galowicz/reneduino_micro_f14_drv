@@ -19,12 +19,6 @@ typedef struct {
 /* Exported Objects */
 
 /* Exported function prototypes */
-/*!
- * Deinitializes rlin3
- */
-void Lin_Rlin3_DeInit(void);
-void Lin_Rlin3_PreSleep(void);
-void Lin_Rlin3_TxWUPSig(void);
 
 /*!
  * Initializes the LIN module.
@@ -32,6 +26,19 @@ void Lin_Rlin3_TxWUPSig(void);
  * \param Config Pointer to LIN driver configuration set.
  */
 void Lin_Rlin3_Init(const Lin_Rlin3_ConfigType* Config);
+
+/*!
+ * Deinitializes rlin3
+ */
+void Lin_Rlin3_DeInit(void);
+/*!
+ * prepare rlin to sleep
+ */
+void Lin_Rlin3_PreSleep(void);
+/*!
+ * send wakeup signal
+ */
+void Lin_Rlin3_TxWUPSig(void);
 
 /*!
  * This function checks if a wakeup has occurred on the addressed LIN channel.

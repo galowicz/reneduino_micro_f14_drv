@@ -83,8 +83,8 @@ prepare-release:
 	$(eval CFLAGS += -O2)
 
 prepare-debug:
-	$(eval CFLAGS += -O0)
-	$(eval LDFLAGS += -g3)
+	$(eval CFLAGS += -Og -g -gdwarf-3)
+	$(eval LDFLAGS += -g -gdwarf-3)
 
 $(BUILD_DIR)/%.s.o: $(ROOT)/%.s
 	@echo "Building: $@"

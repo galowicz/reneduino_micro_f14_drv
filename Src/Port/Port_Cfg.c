@@ -52,7 +52,7 @@ const Port_PortReg_t Port_PortDefaultConfig[] = {
 	{
 		// P4
 		.port_index = 4,
-		.p_reg	    = 0b00000010u,
+		.p_reg	    = 0b00000010u, //P41 - USERLED
 		.pm_reg	    = 0b11111101u,
 		.pim_reg    = 0,
 		.pom_reg    = 0,

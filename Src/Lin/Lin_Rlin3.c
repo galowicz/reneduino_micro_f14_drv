@@ -269,10 +269,6 @@ void Lin_Rlin3_SetMode(Lin_Rlin3_Mode_t mode);
 
 /* Function definitions */
 
-/*!
- * Initialize Rlin3
- * \param Config pointer
- */
 void Lin_Rlin3_Init(const Lin_Rlin3_ConfigType* Config) {
 	(void)Config; // TODO: add config
 
@@ -309,9 +305,10 @@ void Lin_Rlin3_Init(const Lin_Rlin3_ConfigType* Config) {
 	// TODO: start ins sleep
 }
 
-/*!
- * Deinitialises Rlin3
- */
+Std_ReturnType Lin_Rlin3_CheckWakeup(uint8 Channel) {
+	// TODO:
+}
+
 void Lin_Rlin3_DeInit(void) {
 	LIN0TRMMK = 1;
 	LIN0RVCMK = 1;
@@ -321,9 +318,6 @@ void Lin_Rlin3_DeInit(void) {
 	LIN0EN = 0;
 }
 
-/*!
- * Send Header to bus
- */
 Std_ReturnType Lin_Rlin3_SendFrame(const Lin_PduType* PduInfoPtr) {
 	LCHSEL = 0;
 
@@ -577,4 +571,11 @@ void Lin_Rlin3_SetMode(Lin_Rlin3_Mode_t mode) {
 	while (LMST0 != mode) {
 		asm("nop");
 	}
+}
+/* ----------------------------- LIN Slave ---------------------------------- */
+/* -------------------------- Helper functions ------------------------------ */
+Std_ReturnType Rlin3_CheckParity(uint8 Pid) {
+	uint8 parity = (Pid & 0x1) ^ (Pid & 0x2) ^ (Pid & 0x4) ^ (Pid & 0x8);
+
+	return ((Pid & 0xC0) == parity) ? E_OK : E_NOT_OK;
 }
