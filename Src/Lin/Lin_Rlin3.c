@@ -306,7 +306,12 @@ void Lin_Rlin3_Init(const Lin_Rlin3_ConfigType* Config) {
 }
 
 Std_ReturnType Lin_Rlin3_CheckWakeup(uint8 Channel) {
+	Std_ReturnType retval = E_NOT_OK;
 	// TODO:
+	if (0 == Channel) {
+		retval = E_OK;
+	}
+	return retval;
 }
 
 void Lin_Rlin3_DeInit(void) {

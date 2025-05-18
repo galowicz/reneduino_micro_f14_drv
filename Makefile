@@ -41,27 +41,32 @@ cinclude_dirs :=
 cinclude_dirs += $(ROOT)/Cfg/
 cinclude_dirs += $(ROOT)/Src/
 cinclude_dirs += $(ROOT)/Src/Lib/
+cinclude_dirs += $(ROOT)/Src/Lib/Ring_Buffer/
 cinclude_dirs += $(ROOT)/Src/Port/
 cinclude_dirs += $(ROOT)/Src/Dio/
 cinclude_dirs += $(ROOT)/Src/Lin/
+cinclude_dirs += $(ROOT)/Src/Usart/
 
 sinclude_dirs :=
 
 # 4 Sources
 
 csources :=
-csources += $(ROOT)/Src/main.c
-# csources += $(ROOT)/Src/shiftout.c
 csources += $(ROOT)/Cfg/hwinit.c
 csources += $(ROOT)/Cfg/opt_bytes_$(MCU).c
 csources += $(ROOT)/Cfg/vects_$(MCU).c
 csources += $(ROOT)/Cfg/inthandler_$(MCU).c
+csources += $(ROOT)/Src/Lib/Ring_Buffer/RingBuffer_uint8.c
+csources += $(ROOT)/Src/main.c
+# csources += $(ROOT)/Src/shiftout.c
 csources += $(ROOT)/Src/Port/Port_Cfg.c
 csources += $(ROOT)/Src/Port/Port.c
 csources += $(ROOT)/Src/Dio/Dio.c
 csources += $(ROOT)/Src/Dio/Dio_Cfg.c
 csources += $(ROOT)/Src/Lin/Lin.c
 csources += $(ROOT)/Src/Lin/Lin_Rlin3.c
+csources += $(ROOT)/Src/Usart/Usart_Cfg.c
+csources += $(ROOT)/Src/Usart/Usart.c
 
 ssources :=
 ssources += $(ROOT)/Cfg/start.s

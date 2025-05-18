@@ -10,6 +10,7 @@
 #include "Lin_GeneralTypes.h"
 #include "Port.h"
 #include "Std_Types.h"
+#include "Usart.h"
 #include "iodefine_R5F10AGE.h"
 #include "iodefine_ext_R5F10AGE.h"
 #include "shiftout.h"
@@ -41,9 +42,6 @@ int main(void) {
 	Port_Init(&Port_DefaultConfig);
 	Shiftout_Print(0x55);
 	Lin_Init(NULL_PTR);
-	// CKS0 = 0x82;
-
-	// PM4 = (uint8) ~(1 << 1);
 
 	max = 1000000;
 	EI();
@@ -54,9 +52,8 @@ int main(void) {
 		} else {
 			(void)Lin_SendFrame(0, &Frame_Tx);
 		}
-		// (void)Dio_FlipChannel(DIO_CHANNEL_P13);
+
 		(void)Dio_FlipChannel(DIO_CHANNEL_USERLED);
-		// (void)Dio_WriteChannel(DIO_CHANNEL_USERLED, STD_HIGH);
 
 		for (uint32 i = max; i != 0; i--) {
 			asm("nop");
