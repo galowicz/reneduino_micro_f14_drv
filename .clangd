@@ -16,7 +16,7 @@ CompileFlags:
     "--target=i386-unknown-none-code16",
   ]
   CompilationDatabase: .
-  Compiler: /opt/renesas/toolchains/llvm-17.0.1.202412-rl78-elf/bin/clang
+  Compiler: $RL78_LLVM_PATH/bin/clang
 
 Diagnostics:
   Suppress: include
