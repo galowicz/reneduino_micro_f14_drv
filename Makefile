@@ -46,6 +46,7 @@ cinclude_dirs += $(ROOT)/Src/Port/
 cinclude_dirs += $(ROOT)/Src/Dio/
 cinclude_dirs += $(ROOT)/Src/Lin/
 cinclude_dirs += $(ROOT)/Src/Usart/
+cinclude_dirs += $(ROOT)/Src/Spi/
 
 sinclude_dirs :=
 
@@ -67,6 +68,9 @@ csources += $(ROOT)/Src/Lin/Lin.c
 csources += $(ROOT)/Src/Lin/Lin_Rlin3.c
 csources += $(ROOT)/Src/Usart/Usart_Cfg.c
 csources += $(ROOT)/Src/Usart/Usart.c
+csources += $(ROOT)/Src/Spi/Spi.c
+csources += $(ROOT)/Src/Spi/Spi_Ll.c
+csources += $(ROOT)/Src/Spi/Spi_Cfg.c
 
 ssources :=
 ssources += $(ROOT)/Cfg/start.s

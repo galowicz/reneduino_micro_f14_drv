@@ -9,6 +9,7 @@
 #include "Lin.h"
 #include "Lin_GeneralTypes.h"
 #include "Port.h"
+#include "Spi/Spi_Ll.h"
 #include "Std_Types.h"
 #include "Usart.h"
 #include "iodefine_R5F10AGE.h"
@@ -43,6 +44,8 @@ int main(void) {
 	Shiftout_Print(0x55);
 	Lin_Init(NULL_PTR);
 
+	Spi_Ll_Init(0, NULL_PTR);
+	Shiftout_Print(0xAA);
 	max = 1000000;
 	EI();
 	for (;;) {
