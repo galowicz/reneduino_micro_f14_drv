@@ -25,9 +25,10 @@ LDFLAGS += -Wl,--gc-sections
 LDFLAGS += -Wl,--cref
 LDFLAGS += -Wl,--icf=none
 
+
 # Compiler toolchain in RL78_PATH global variable
 CC := $(RL78_LLVM_PATH)/bin/clang
-ASM := $(RL78_LLVM_PATH)/bin/clang
+AS := $(RL78_LLVM_PATH)/bin/clang
 OBJCOPY := $(RL78_LLVM_PATH)/bin/llvm-objcopy
 SIZE := $(RL78_LLVM_PATH)/bin/llvm-size
 READELF := $(RL78_LLVM_PATH)/bin/llvm-readelf
@@ -35,9 +36,23 @@ RFP_CLI := rfp-cli
 RM := rm -rf
 RMDIR := rmdir
 LIBS :=
+# programmer used, defaults to serial
+PROG ?=
+ifeq ($(PROG), )
+	PROGOPTS ?= -port /dev/ttyUSB0 -dtr -rts-inv -s 115200
+endif
+
+cinclude_dirs :=
+sinclude_dirs :=
+csources :=
+csources += $(ROOT)/Cfg/hwinit.c
+csources += $(ROOT)/Cfg/opt_bytes_$(MCU).c
+csources += $(ROOT)/Cfg/vects_$(MCU).c
+csources += $(ROOT)/Cfg/inthandler_$(MCU).c
+ssources :=
+ssources += $(ROOT)/Cfg/start.s
 
 # 3 Include Dirs
-cinclude_dirs :=
 cinclude_dirs += $(ROOT)/Cfg/
 cinclude_dirs += $(ROOT)/Src/
 cinclude_dirs += $(ROOT)/Src/Lib/
@@ -48,18 +63,9 @@ cinclude_dirs += $(ROOT)/Src/Lin/
 cinclude_dirs += $(ROOT)/Src/Usart/
 cinclude_dirs += $(ROOT)/Src/Spi/
 
-sinclude_dirs :=
-
 # 4 Sources
-
-csources :=
-csources += $(ROOT)/Cfg/hwinit.c
-csources += $(ROOT)/Cfg/opt_bytes_$(MCU).c
-csources += $(ROOT)/Cfg/vects_$(MCU).c
-csources += $(ROOT)/Cfg/inthandler_$(MCU).c
 csources += $(ROOT)/Src/Lib/Ring_Buffer/RingBuffer_uint8.c
 csources += $(ROOT)/Src/main.c
-# csources += $(ROOT)/Src/shiftout.c
 csources += $(ROOT)/Src/Port/Port_Cfg.c
 csources += $(ROOT)/Src/Port/Port.c
 csources += $(ROOT)/Src/Dio/Dio.c
@@ -72,9 +78,8 @@ csources += $(ROOT)/Src/Spi/Spi.c
 csources += $(ROOT)/Src/Spi/Spi_Ll.c
 csources += $(ROOT)/Src/Spi/Spi_Cfg.c
 
-ssources :=
-ssources += $(ROOT)/Cfg/start.s
 ssources += $(ROOT)/Src/shiftout.s
+
 
 objects := $(csources:$(ROOT)%.c=$(BUILD_DIR)%.c.o) $(ssources:$(ROOT)%.s=$(BUILD_DIR)%.s.o)
 
@@ -83,10 +88,10 @@ includes := $(subst $(ROOT),-I $(ROOT),$(cinclude_dirs))
 output_dirs := $(subst $(ROOT),$(BUILD_DIR),$(cinclude_dirs))
 
 # 5 Rules
-all: $(BUILD_DIR)/Src release run
+all: release run
 
-$(BUILD_DIR)/Src:
-	$(VERB)mkdir -p $(output_dirs)
+# $(BUILD_DIR)/Src:
+# 	$(VERB)mkdir -p $(output_dirs)
 
 prepare-release:
 	$(eval CFLAGS += -O2)
@@ -95,19 +100,23 @@ prepare-debug:
 	$(eval CFLAGS += -Og -g -gdwarf-3)
 	$(eval LDFLAGS += -g -gdwarf-3)
 
+$(BUILD_DIR)/%.S.o: $(ROOT)/%.S
 $(BUILD_DIR)/%.s.o: $(ROOT)/%.s
 	@echo "Building: $@"
-	$(ASM) $(SFLAGS) $(includes) -MF"$(@:%.o=%.d)" -MT"$@" -c -o $@ $<
+	@mkdir -p $(@D)
+	$(AS) $(SFLAGS) $(includes) -MF"$(@:%.o=%.d)" -MT"$@" -c -o $@ $<
 	@echo ''
 
 $(BUILD_DIR)/%.C.o: $(ROOT)/%.C
 $(BUILD_DIR)/%.c.o: $(ROOT)/%.c
 	@echo "Building file: $@"
+	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) $(includes)  -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" $< -c -o $@
 	@echo ''
 
-$(BUILD_DIR)/$(ARTIFACT_NAME).elf: $(BUILD_DIR)/Src $(objects)
+$(BUILD_DIR)/$(ARTIFACT_NAME).elf: $(objects)
 	@echo "Linking: $@"
+	@mkdir -p $(@D)
 	$(CC) $(LDFLAGS) $(includes) -o "$@" $(objects)
 	@echo  'Build finished'
 	@echo ''
@@ -133,7 +142,11 @@ debug: prepare-debug $(BUILD_DIR)/$(ARTIFACT_NAME).elf print_size
 
 run: $(BUILD_DIR)/$(ARTIFACT_NAME).hex
 	@echo "Programming"
-	$(RFP_CLI) -d rl78 -port /dev/ttyUSB0 -s 115200 -dtr -rts-inv -erase -program -verify $(BUILD_DIR)/$(ARTIFACT_NAME).hex
+ifeq ($(PROG), e2l)
+	$(RFP_CLI) -d rl78 -tool e2l $(PROGOPTS) -erase -program -verify $(BUILD_DIR)/$(ARTIFACT_NAME).hex
+else
+	$(RFP_CLI) -d rl78 $(PROGOPTS) -erase -program -verify $(BUILD_DIR)/$(ARTIFACT_NAME).hex
+endif
 	@echo ''
 
 clean:
